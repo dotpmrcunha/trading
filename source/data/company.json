@@ -1,0 +1,22 @@
+[
+  {
+    "model": "app.company",
+    "pk": "bebcacf5-0b17-4644-abe1-bf2ec42b63aa",
+    "fields": {
+      "sector": 1,
+      "address": "Some Address",
+      "symbol": "AAPL",
+      "short_name": "Apple Inc."
+    }
+  },
+  {
+    "model": "app.company",
+    "pk": "f27ed104-97cc-4a53-8a15-6cd667f1beef",
+    "fields": {
+      "sector": 1,
+      "address": "Some Address",
+      "symbol": "MSFT",
+      "short_name": "Microsoft Inc."
+    }
+  }
+]
