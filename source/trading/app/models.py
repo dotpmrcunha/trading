@@ -47,4 +47,3 @@ class DailyPrice(models.Model):
         indexes = [
             models.Index(fields=['symbol', 'date']),
         ]
-
