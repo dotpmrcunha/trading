@@ -20,6 +20,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'add-new-symbol-information': {
         'task': 'app.tasks.add_daily_information',
-        'schedule': 10.0
+        'schedule': crontab(minute=0, hour=0, day_of_week=[2, 3, 4, 5, 6])
     },
 }

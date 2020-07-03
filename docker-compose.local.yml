@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=trading_database
+      - POSTGRES_USER=trading
+      - POSTGRES_PASSWORD=trading
+    ports:
+      - "5432:5432"
+  redis:
+    image: "redis:5.0.4-stretch"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    stop_grace_period: "${DOCKER_STOP_GRACE_PERIOD:-3s}"
+    volumes:
+      - "redis:/data"
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+  redis: {}
