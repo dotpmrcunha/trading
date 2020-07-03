@@ -13,7 +13,6 @@ class GetPrice:
     def __init__(self, days=31):
         self.days = days
 
-
     @property
     def id(self):
         self.__id += 1
@@ -27,7 +26,7 @@ class GetPrice:
     def result(self, value):
         self.__result.append(value)
 
-    def get_company_data(self, symbol: str, days: int = 31):
+    def get_company_data(self, symbol: str, company_id: str, days: int = 31):
         res = yf.Ticker(symbol).history()
         date = dt.now() - relativedelta(months=1)
 
@@ -38,6 +37,7 @@ class GetPrice:
                     "model": "app.dailyprice",
                     "pk": self.id,
                     "fields": {
+                        "company_id": company_id,
                         "symbol": symbol,
                         "open": float(res.get("Open").get(string_date)),
                         "high": float(res.get("High").get(string_date)),
@@ -50,13 +50,21 @@ class GetPrice:
                 self.result = element
 
     def save_json(self):
-        with open(f'price.json', 'w') as outfile:
+        with open(f'source/data/price.json', 'w') as outfile:
             json.dump(self.result, outfile)
 
 
-get_price = GetPrice()
+def get_companies():
+    companies = []
+    with open(f'source/data/company.json', 'r') as infile:
+        info = json.load(infile)
+        for i in info:
+            companies.append((i.get('fields').get('symbol'), i.get('pk')))
+    return companies
 
-for ticket in ["MSFT", "AAPL"]:
-    get_price.get_company_data("MSFT")
+
+get_price = GetPrice()
+for ticket, company_id in get_companies():
+    get_price.get_company_data(ticket, company_id)
 
 get_price.save_json()

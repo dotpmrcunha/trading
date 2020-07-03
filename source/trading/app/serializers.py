@@ -1,4 +1,5 @@
 import uuid
+
 from rest_framework import serializers, fields
 
 from app.models import Company
@@ -29,3 +30,9 @@ class DailyPriceSerializer(serializers.Serializer):
     volume = fields.IntegerField(min_value=0, required=True)
 
     date = fields.DateField(read_only=True)
+
+
+class RecommendationSerializer(serializers.Serializer):
+
+    date = fields.DateField(read_only=True)
+    recommendation = fields.DecimalField(max_digits=15, decimal_places=4, coerce_to_string=False)

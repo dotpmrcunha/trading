@@ -1,4 +1,5 @@
 django-rest-framework
+psycopg2
 django-filter
 yfinance
 gunicorn

@@ -31,6 +31,8 @@ class Company(models.Model):
 
 class DailyPrice(models.Model):
 
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
     symbol = models.CharField(max_length=10)
 
     open = models.DecimalField(max_digits=15, decimal_places=4)
