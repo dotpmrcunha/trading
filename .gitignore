@@ -1,2 +1,4 @@
 /source/data/price.json
 /source/trading/db.sqlite3
+/source/trading/celerybeat.pid
+/source/trading/celerybeat-schedule

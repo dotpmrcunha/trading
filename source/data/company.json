@@ -3,8 +3,8 @@
     "model": "app.company",
     "pk": "bebcacf5-0b17-4644-abe1-bf2ec42b63aa",
     "fields": {
-      "sector": 1,
-      "address": "Some Address",
+      "sector": 8,
+      "address": "Apple Address",
       "symbol": "AAPL",
       "short_name": "Apple Inc."
     }
@@ -13,10 +13,30 @@
     "model": "app.company",
     "pk": "f27ed104-97cc-4a53-8a15-6cd667f1beef",
     "fields": {
-      "sector": 1,
-      "address": "Some Address",
-      "symbol": "MSFT",
-      "short_name": "Microsoft Inc."
+      "sector": 8,
+      "address": "Facebook Address",
+      "symbol": "FB",
+      "short_name": "Facebook"
+    }
+  },
+  {
+    "model": "app.company",
+    "pk": "3465bebf-4a30-4cdf-8adc-09d7283e8ddb",
+    "fields": {
+      "sector": 8,
+      "address": "Netflix Address",
+      "symbol": "NFLX",
+      "short_name": "Netflix"
+    }
+  },
+  {
+    "model": "app.company",
+    "pk": "eaa51677-a7c9-4991-bba1-5357b4fffe0d",
+    "fields": {
+      "sector": 8,
+      "address": "Alphabet Address",
+      "symbol": "GOOG",
+      "short_name": "Alphabet Inc"
     }
   }
 ]
