@@ -29,4 +29,8 @@ In another terminal:
 
 ## Production
 
+To only run:
 * docker-compose -f docker-compose.yml up -d
+
+To run and import initial information:
+add INITIAL=1 in config/.env.prod

@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False),
+)
+environ.Env.read_env()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,17 +27,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7npx-ji6n@%o1z$d(k8gs&%l%8xts6d+z+wjqbxhwd$(&(33+1'
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -78,12 +82,12 @@ WSGI_APPLICATION = 'trading.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trading_database',
-        'USER': 'trading',
-        'PASSWORD': 'trading',
-        'HOST': '0.0.0.0',
-        'PORT': '5432',
+        'ENGINE': env.DB_SCHEMES.get('psql'),
+        'NAME': env('DATABASES_DEFAULT_NAME'),
+        'USER': env('DATABASES_DEFAULT_USER'),
+        'PASSWORD': env('DATABASES_DEFAULT_PASSWORD'),
+        'HOST': env('DATABASES_DEFAULT_HOST'),
+        'PORT': 5432,
     }
 }
 
@@ -137,3 +141,5 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 100,
 
 }
+
+CELERY_BROKER_URL = env('CELERY_BROKER_URL')

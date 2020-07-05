@@ -12,7 +12,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'trading.settings')
 app = Celery('trading')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
-app.conf.broker_url = 'redis://0.0.0.0:6379/0'
 
 app.autodiscover_tasks()
 

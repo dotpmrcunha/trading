@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres
+    env_file:
+      - ./source/config/.env.prod.db
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: "redis:5.0.4-stretch"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    stop_grace_period: "${DOCKER_STOP_GRACE_PERIOD:-3s}"
+    volumes:
+      - "redis:/data"
+    ports:
+      - "6379:6379"
+
+  celery_beat:
+    build: ./source
+    working_dir: /source/trading
+    command: celery -A trading beat
+    env_file:
+      - ./source/config/.env.prod
+    depends_on:
+      - db
+
+  celery_worker:
+    build: ./source
+    working_dir: /source/trading
+    command: celery -A trading worker
+    env_file:
+      - ./source/config/.env.prod
+    depends_on:
+      - db
+
+  web:
+    build: ./source
+    working_dir: /source/trading
+    command: gunicorn -b 0.0.0.0:8000 trading.wsgi
+    env_file:
+      - ./source/config/.env.prod
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+  redis: {}

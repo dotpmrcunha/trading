@@ -1,4 +1,5 @@
 import json
+import os
 from datetime import datetime as dt
 
 import yfinance as yf
@@ -50,13 +51,13 @@ class GetPrice:
                 self.result = element
 
     def save_json(self):
-        with open(f'source/data/price.json', 'w') as outfile:
+        with open(f'{os.getenv("DATA_BASE", "source/data")}/price.json', 'w') as outfile:
             json.dump(self.result, outfile)
 
 
 def get_companies():
     companies = []
-    with open(f'source/data/company.json', 'r') as infile:
+    with open(f'{os.getenv("DATA_BASE", "source/data")}/company.json', 'r') as infile:
         info = json.load(infile)
         for i in info:
             companies.append((i.get('fields').get('symbol'), i.get('pk')))

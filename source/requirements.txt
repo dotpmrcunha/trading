@@ -1,6 +1,8 @@
 django-rest-framework
+django-environ
 psycopg2
 celery[redis]
 django-filter
 yfinance
 gunicorn
+lxml
