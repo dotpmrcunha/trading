@@ -15,6 +15,7 @@ class CompanySerializer(serializers.Serializer):
 
     def create(self, validated_data):
         validated_data['company_id'] = uuid.uuid4()
+        validated_data['sector'] = validated_data.pop('get_sector_display')
         return Company.objects.create(**validated_data)
 
 
